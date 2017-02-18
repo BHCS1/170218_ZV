@@ -1,4 +1,4 @@
-package java.drawchart;
+package drawchart;
 
 
 import org.jfree.chart.ChartFactory;
@@ -19,7 +19,7 @@ public class PieChart {
     public void drawChart () {
     DefaultPieDataset piedata = new DefaultPieDataset();
     for (int i = 0; i < dep.length; i++) 
-    piedata.setValue(dep[i], new Integer(countEmp[i]));
+      piedata.setValue(dep[i], new Integer(countEmp[i]));
 
     JFreeChart chart = ChartFactory.createPieChart("Employees statistics", piedata, true, true, true);
     PiePlot p= (PiePlot)chart.getPlot();
