@@ -66,33 +66,40 @@ public class Department extends Model {
   }
 
 
-  public static ArrayList<Department> getAll() throws ClassNotFoundException, SQLException {
-    connect();
+  public static ArrayList<Department> getAll() {
     ArrayList<Department> list = new ArrayList<>();
 
-    String query = "SELECT d.department_name AS depName, " +
-            "d.department_id AS id, " +
-            "d.manager_id AS managerId " +
-            "COUNT(e.employee_id) AS empCount " +
-            "FROM departments d " +
-            "LEFT JOIN employees e ON e.department_id=d.department_id " +
-            "GROUP BY d.department_id " +
-            "ORDER BY d.depName";
+    try{
+      connect();
 
-    ResultSet result = connection.createStatement().executeQuery(query);
+      String query = "SELECT d.department_name AS depName, " +
+              "d.department_id AS id, " +
+              "d.manager_id AS managerId " +
+              "COUNT(e.employee_id) AS empCount " +
+              "FROM departments d " +
+              "LEFT JOIN employees e ON e.department_id=d.department_id " +
+              "GROUP BY d.department_id " +
+              "ORDER BY d.depName";
 
-    while (result.next()) {
-      list.add(
-        new Department(
-          result.getInt("id"),
-          result.getString("depName"),
-          result.getInt("managerId"),
-          result.getInt("empCount")
-        )
-      );
+      ResultSet result = connection.createStatement().executeQuery(query);
+
+      while (result.next()) {
+        list.add(
+          new Department(
+            result.getInt("id"),
+            result.getString("depName"),
+            result.getInt("managerId"),
+            result.getInt("empCount")
+          )
+        );
+      }
+
+      disconnect();
+    } catch (SQLException ex) {
+      Logger.getLogger(Department.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (ClassNotFoundException ex) {
+      Logger.getLogger(Department.class.getName()).log(Level.SEVERE, null, ex);
     }
-
-    disconnect();
     return list;
   }
   
