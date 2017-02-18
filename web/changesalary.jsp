@@ -47,7 +47,7 @@
     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
     <% String message = change.getMessages(request.getParameter("newsalary"));
     if (message.equals("Salary updated"))
-      XmlLog.logSalaryChange(auth.getUsername(), change.getID(), change.getName(), change.getBeforeSalary(), change.getSalary());
+      XmlLog.logSalaryChange(auth.getUsername(), change.getID(), change.getName(value), change.getBeforeSalary(), change.getSalary());
     %>
     <%= message %>
   </div>
