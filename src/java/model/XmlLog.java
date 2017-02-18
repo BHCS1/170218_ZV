@@ -104,6 +104,8 @@ public class XmlLog {
   }
   
   public static void logLogin(String username) {
+    if (username == null)
+      username = "";
     String[] datas = getEmptyStringArray();
     datas[1] = username;
     datas[2] = "login";

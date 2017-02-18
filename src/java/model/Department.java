@@ -64,6 +64,7 @@ public class Department extends Model {
     } catch (SQLException ex) {
       ;
     }
+    
     return department;
   }
 

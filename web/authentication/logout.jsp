@@ -1,5 +1,6 @@
-<%@page import="model.XmlLog"%>
 // Berényi Lajos
+
+<%@page import="model.XmlLog"%>
 
 <%@page import="jsp.AuthBean" contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:useBean id="auth" class="jsp.AuthBean" scope="session"/>
