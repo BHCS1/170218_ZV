@@ -1,3 +1,5 @@
+// Berényi Lajos
+
 package jsp;
 
 import java.sql.SQLException;
@@ -9,6 +11,7 @@ import model.Employee;
 public class ChangeSalary extends model.Employee  {
   private ArrayList<Employee> employee; 
   private int index;
+  private int beforeSalary;
   private int newSalary;
   int[] salaryMinMax= new int[2];
   private int id;
@@ -77,10 +80,16 @@ public String getName(String idValue) {
     else if (!typedSalaryValueCheck())
       return "Wrong salary, please type a new salary!";
     else {
-
+        beforeSalary = employee.get(index).getSalary();
         employee.get(index).setSalary(newSalary);
         employee.get(index).update();               
     return "Salary updated"; 
     }
   }
+
+  public int getBeforeSalary() {
+    return beforeSalary;
+  }
+  
+  
 }

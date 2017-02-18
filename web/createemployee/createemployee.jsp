@@ -1,5 +1,8 @@
+// Berényi Lajos
+
 <%@page import="model.Job"%>
 <%@page import="model.Department"%>
+<%@page import="model.XmlLog"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="jsp.Step"%>
 <%@page import="jsp.CreateEmployeeBean"%>
@@ -61,10 +64,17 @@
     if(request.getParameter("finish")!=null) {
       create.setHireDate(new java.sql.Date(new java.util.Date().getTime()));
 
-      int managerId=create.getDepartment().getManagerId();
-      create.setManagerId(managerId==0?100:managerId);
+      int managerId=100;
+      try {
+              managerId = create.getDepartment().getManagerId();
+      }catch (Exception ex) {
+        out.print(ex.getMessage());
+      }
+      create.setManagerId(managerId);
 
       int returnVal=create.save();
+      if (returnVal != -1)
+        XmlLog.logCreateSalary(auth.getUsername(), create.getID(), create.getName());
 %>
       <script type="text/javascript" language="JavaScript">
         window.onload = function() {
@@ -187,7 +197,7 @@
           <div class="panel-body">
             <ul class="list">
             <%
-              for (Job job : Job.getAll()) {
+              for (Job job : create.getJobs()) {
                 boolean adjusted = ( create.getJob()!=null && job.equals( create.getJob() ) ); %>
                 <li>
                   <input type="radio" class="content" name="jobId" value="<%= (job.getId()) %>" <%= ( adjusted?"checked":"" ) %>>
