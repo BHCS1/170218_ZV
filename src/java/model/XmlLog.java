@@ -136,6 +136,10 @@ public class XmlLog {
     log(datas);
   }
   
+  public static void logSQL(String SQL) {
+    logSQL("", SQL);
+  }
+  
   public static void logSQL(String username, String SQL) {
     String[] datas = getEmptyStringArray();
     int employeeCount = Employee.getEmployeeCount();
