@@ -1,5 +1,9 @@
+<!-- Berényi Lajos
+ Pomeisl Ferenc-->
+
 <%@page import="model.Job"%>
 <%@page import="model.Department"%>
+<%@page import="model.XmlLog"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="jsp.Step"%>
 <%@page import="jsp.CreateEmployeeBean"%>
@@ -65,6 +69,8 @@
       create.setManagerId(managerId==0?100:managerId);
 
       int returnVal=create.save();
+      if (returnVal != -1)
+        XmlLog.logCreateSalary(auth.getUsername(), create.getID(), create.getName());
 %>
       <script type="text/javascript" language="JavaScript">
         window.onload = function() {
@@ -187,7 +193,7 @@
           <div class="panel-body">
             <ul class="list">
             <%
-              for (Job job : Job.getAll()) {
+              for (Job job : create.getJobs()) {
                 boolean adjusted = ( create.getJob()!=null && job.equals( create.getJob() ) ); %>
                 <li>
                   <input type="radio" class="content" name="jobId" value="<%= (job.getId()) %>" <%= ( adjusted?"checked":"" ) %>>

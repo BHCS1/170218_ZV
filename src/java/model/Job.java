@@ -1,3 +1,4 @@
+// Bakos Balázs
 package model;
 
 import java.sql.ResultSet;
@@ -35,7 +36,7 @@ public class Job extends Model {
             + "WHERE job_id='"+id+"'";
 
       ResultSet result = connection.createStatement().executeQuery(query);
-
+      XmlLog.logSQL(query);
       result.next();
       job = new Job(
             result.getString("id"),
@@ -65,7 +66,7 @@ public class Job extends Model {
             + "ORDER BY jobTitle";
 
     ResultSet result = connection.createStatement().executeQuery(query);
-
+    XmlLog.logSQL(query);
     while (result.next()) {
       list.add(
         new Job(
