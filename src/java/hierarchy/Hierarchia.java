@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultTreeModel;
@@ -24,9 +25,9 @@ public class Hierarchia extends JFrame {
     try {
       treeModel=new DefaultTreeModel(HierarchyModel.getModel());
     } catch (SQLException ex) {
-      Logger.getLogger(Hierarchia.class.getName()).log(Level.SEVERE, null, ex);
+      JOptionPane.showMessageDialog(this, "Querying data failed!", "Error", JOptionPane.INFORMATION_MESSAGE);
     } catch (ClassNotFoundException ex) {
-      Logger.getLogger(Hierarchia.class.getName()).log(Level.SEVERE, null, ex);
+      System.out.println(ex.getMessage());
     }
 
     tree.setModel(treeModel);

@@ -1,3 +1,6 @@
+// Berényi Lajos
+
+<%@page import="model.XmlLog"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="model.Employee"%>
 <%@page import="java.util.ArrayList"%>
@@ -44,7 +47,11 @@
   <% if (request.getParameter("newsalary")!=null) {%>
   <div class="alert alert-danger" role="alert">
     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-    <%= change.getMessages(request.getParameter("newsalary")) %>
+    <% String message = change.getMessages(request.getParameter("newsalary"));
+    if (message.equals("Salary updated"))
+      XmlLog.logSalaryChange(auth.getUsername(), change.getID(), change.getName(), change.getBeforeSalary(), change.getSalary());
+    %>
+    <%= message %>
   </div>
   <% }%>
       
