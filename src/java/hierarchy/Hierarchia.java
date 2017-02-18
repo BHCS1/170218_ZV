@@ -1,8 +1,7 @@
 // Pomeisl Ferenc
-package Hierarchia;
+package hierarchy;
 
 import java.awt.HeadlessException;
-import java.awt.event.HierarchyBoundsAdapter;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,9 +23,12 @@ public class Hierarchia extends JFrame {
     DefaultTreeModel treeModel=null;
     try {
       treeModel=new DefaultTreeModel(HierarchyModel.getModel());
-    } catch (SQLException|ClassNotFoundException ex) {
-      System.out.println("Hiba");
+    } catch (SQLException ex) {
+      Logger.getLogger(Hierarchia.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (ClassNotFoundException ex) {
+      Logger.getLogger(Hierarchia.class.getName()).log(Level.SEVERE, null, ex);
     }
+
     tree.setModel(treeModel);
     this.add(new JScrollPane(tree));
   }
