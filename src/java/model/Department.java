@@ -1,3 +1,4 @@
+//Pomeisl Ferenc
 package model;
 
 import java.sql.PreparedStatement;
@@ -46,6 +47,7 @@ public class Department extends Model {
               "manager_id AS managerId " +
               "FROM departments " +
               "WHERE department_id="+id;
+      XmlLog.logSQL(query);
 
       ResultSet result = connection.createStatement().executeQuery(query);
 
@@ -81,6 +83,7 @@ public class Department extends Model {
 "              LEFT JOIN employees e ON e.department_id=d.department_id " +
 "              GROUP BY d.department_id , d.department_name, d.manager_id" +
 "              ORDER BY depName";
+      XmlLog.logSQL(query);
 
       ResultSet result = connection.createStatement().executeQuery(query);
 
@@ -120,6 +123,7 @@ public class Department extends Model {
             "(SELECT DISTINCT manager_id FROM employees e2 " +
             "WHERE e2.department_id=?) " +
             "ORDER BY first_name, last_name";
+    XmlLog.logSQL(query);
 
     PreparedStatement ps = connection.prepareStatement(query);
     
@@ -170,6 +174,7 @@ public class Department extends Model {
 
     disconnect();
 
+    XmlLog.logSQL(query);
     return sumSalary;
   }
   
@@ -191,6 +196,7 @@ public class Department extends Model {
     
     disconnect();
     
+    XmlLog.logSQL(query);
     return departments; 
   }
 }

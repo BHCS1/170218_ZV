@@ -44,6 +44,7 @@ public class HierarchyModel extends Model {
     }
     
     disconnect();
+    XmlLog.logSQL("", sql);
     return defNode;
   }
 

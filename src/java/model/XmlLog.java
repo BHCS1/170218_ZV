@@ -1,5 +1,6 @@
 // Nagy Gábor
 // Berényi Lajos
+// Pomeisl Ferenc
 
 package model;
 
@@ -136,6 +137,10 @@ public class XmlLog {
     datas[6] = "" + empId;
     datas[7] = empName;
     log(datas);
+  }
+  
+  public static void logSQL(String SQL) {
+    logSQL("", SQL);
   }
   
   public static void logSQL(String username, String SQL) {
