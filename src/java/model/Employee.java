@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Employee extends Model {
 
@@ -22,6 +24,29 @@ public class Employee extends Model {
   private Department department;
   private Job job;
 
+  public static int getEmployeeCount() {
+    int count = 0;
+    
+    try {
+      connect();
+      
+      String query = "SELECT COUNT(employee_id) AS c FROM employees";
+      
+      ResultSet result = connection.createStatement().executeQuery(query);
+      result.next();
+      
+      count = result.getInt("c");
+      
+      disconnect();
+    } catch (ClassNotFoundException ex) {
+      Logger.getLogger(Employee.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (SQLException ex) {
+      Logger.getLogger(Employee.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    
+    return count;
+  }
+  
   public static ArrayList<Employee> getAll() throws ClassNotFoundException, SQLException {
     connect();
     ArrayList<Employee> list = new ArrayList<>();
@@ -94,6 +119,10 @@ public class Employee extends Model {
   
   public Employee() {
     ;
+  }
+  
+  public Employee(int id) {
+    this.id = id;
   }
 
   public Employee(int id, String firstName, String lastName, int salary, 
@@ -297,6 +326,24 @@ public class Employee extends Model {
     disconnect();
     
     return res;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null) {
+      return false;
+    }
+    if (getClass() != obj.getClass()) {
+      return false;
+    }
+    final Employee other = (Employee) obj;
+    if (this.id != other.id) {
+      return false;
+    }
+    return true;
   }
   
   
