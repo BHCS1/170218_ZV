@@ -1,9 +1,9 @@
 // Nagy Gábor
 // Berényi Lajos
+// Pomeisl Ferenc
 
 package model;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -20,7 +20,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-import server.authentication.Authentication;
 
 public class XmlLog {
   
@@ -136,6 +135,10 @@ public class XmlLog {
     datas[6] = "" + empId;
     datas[7] = empName;
     log(datas);
+  }
+  
+  public static void logSQL(String SQL) {
+    logSQL("", SQL);
   }
   
   public static void logSQL(String username, String SQL) {
