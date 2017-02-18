@@ -12,7 +12,6 @@ import model.Department;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.labels.StandardPieSectionLabelGenerator;
 import org.jfree.chart.plot.PiePlot;
 import org.jfree.data.general.DefaultPieDataset;
 
@@ -30,17 +29,5 @@ public class PieChart {
       ChartFrame frame=new ChartFrame("Statistic", chart);
       frame.setVisible(true);
       frame.setSize(1200,700);
-  }
-  
-    public static void main(String[] args) {
-
-      try {
-        new PieChart().drawChart();
-      } catch (SQLException ex) {
-        Logger.getLogger(PieChart.class.getName()).log(Level.SEVERE, null, ex);
-      } catch (ClassNotFoundException ex) {
-        Logger.getLogger(PieChart.class.getName()).log(Level.SEVERE, null, ex);
-      }
-   
   }
 }
