@@ -18,7 +18,9 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+import server.authentication.Authentication;
 
 public class XmlLog {
   
@@ -26,26 +28,24 @@ public class XmlLog {
   private static final String TIMESTAMP = "timestamp";
   private static final String[] ATTRIBUTESNAMES = 
     {TIMESTAMP, "user", "type", "from", "to", "sql", "empId", "empName"};
-  private static final File XMLFILE = new File(XmlLog.class.getResource("log.xml").toString());
+  
+  private static final InputSource XMLFILE = new InputSource(XmlLog.class.getResource("log.xml").toString());
 		
   private static void loadXml() {
-    // csak akkor be beolvasni ha még nincs
-    //if (d==null) {
+    try {
+      d = DocumentBuilderFactory.newInstance().newDocumentBuilder()
+              .parse(XMLFILE);
+    }
+    catch (ParserConfigurationException | SAXException | IOException ex) {
+      System.out.println("Error: " + ex.getMessage());
       try {
-        d = DocumentBuilderFactory.newInstance().newDocumentBuilder()
-                .parse(XMLFILE);
+        d = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
+        Element root = d.createElement("root");
+        d.appendChild(root);
+      } catch (ParserConfigurationException e) {
+        e.printStackTrace();
       }
-      catch (ParserConfigurationException | SAXException | IOException ex) {
-        System.out.println("Error: " + ex.getMessage());
-        try {
-          d = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
-          Element root = d.createElement("root");
-          d.appendChild(root);
-        } catch (ParserConfigurationException e) {
-          e.printStackTrace();
-        }
-      }
-    //}
+    }
   }
   
   public static void log(String[] data) {
@@ -60,7 +60,7 @@ public class XmlLog {
       }
     }
     DOMSource source = new DOMSource(root);
-      StreamResult xml = new StreamResult(XMLFILE);
+      StreamResult xml = new StreamResult(XmlLog.class.getResource("log.xml").toString());
       Transformer transformer;
     try {
       transformer = TransformerFactory.newInstance().newTransformer();
