@@ -1,3 +1,4 @@
+<!-- Kovács Zoltán-->
 <%@page import="jsp.AuthBean, model.Employee" contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:useBean id="auth" class="jsp.AuthBean" scope="session"/>
 
@@ -22,6 +23,9 @@
             <% } %>
             <% if(auth.hasPermission("create_employee")) { %>
             <li><a href="${pageContext.request.contextPath}/createemployee/createemployee.jsp">Create New Employee</a></li>
+            <% } %>
+            <% if(auth.hasPermission("log")) { %>
+            <li><a href="${pageContext.request.contextPath}/log.jsp">Log table</a></li>
             <% } %>
         <% } %>
       </ul>
