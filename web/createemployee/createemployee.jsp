@@ -1,4 +1,5 @@
-// Berényi Lajos
+<!-- Berényi Lajos
+ Pomeisl Ferenc-->
 
 <%@page import="model.Job"%>
 <%@page import="model.Department"%>
@@ -64,13 +65,8 @@
     if(request.getParameter("finish")!=null) {
       create.setHireDate(new java.sql.Date(new java.util.Date().getTime()));
 
-      int managerId=100;
-      try {
-              managerId = create.getDepartment().getManagerId();
-      }catch (Exception ex) {
-        out.print(ex.getMessage());
-      }
-      create.setManagerId(managerId);
+      int managerId=create.getDepartment().getManagerId();
+      create.setManagerId(managerId==0?100:managerId);
 
       int returnVal=create.save();
       if (returnVal != -1)
