@@ -30,4 +30,14 @@ public class PieChart {
       frame.setVisible(true);
       frame.setSize(1200,700);
   }
+    
+  public static void main(String[] args) {
+      try {
+        new PieChart().drawChart();
+      } catch (SQLException ex) {
+        Logger.getLogger(PieChart.class.getName()).log(Level.SEVERE, null, ex);
+      } catch (ClassNotFoundException ex) {
+        Logger.getLogger(PieChart.class.getName()).log(Level.SEVERE, null, ex);
+      }
+  }
 }
