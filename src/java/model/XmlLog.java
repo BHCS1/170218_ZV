@@ -2,6 +2,7 @@
 
 package model;
 
+import java.util.ArrayList;
 import org.w3c.dom.Document;
 
 public class XmlLog {
@@ -21,7 +22,7 @@ public class XmlLog {
     
   }
   
-  public static ArrayList<String> getXmlContent() {
+  public static ArrayList<String[]> getXmlContent() {
     
   }
   
