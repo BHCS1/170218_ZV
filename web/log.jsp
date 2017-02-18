@@ -1,9 +1,4 @@
-<%-- 
-    Document   : log
-    Created on : 2017.02.18., 9:11:26
-    Author     : ferenc
---%>
-
+<!-- Pomeisl Ferenc-->
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:useBean id="auth" class="jsp.AuthBean" scope="session"/>
 
