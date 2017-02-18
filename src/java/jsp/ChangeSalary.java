@@ -90,6 +90,6 @@ public String getName(String idValue) {
   public int getBeforeSalary() {
     return beforeSalary;
   }
-  
+
   
 }

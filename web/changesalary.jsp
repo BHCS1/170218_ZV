@@ -1,3 +1,4 @@
+<%@page import="jsp.ChangeSalary"%>
 <%@page import="model.XmlLog"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="model.Employee"%>
@@ -7,11 +8,13 @@
 
 <jsp:include page="/layout/head.jsp"></jsp:include>
 
-<%String value = request.getParameter("emp_id");
-  if (!auth.isloggedIn() || !auth.hasPermission("salary_change") || change.getName(value)==null) {
+<% String value = request.getParameter("emp_id");
+   if (!auth.isloggedIn() || !auth.hasPermission("salary_change") || change.getName(value)==null) {
     response.sendRedirect(request.getContextPath() + "/index.jsp");
     return;
-  }%>
+  }
+
+%>
 
 <div class="page-header">
   <h1>Change Salary</h1>
@@ -47,7 +50,7 @@
     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
     <% String message = change.getMessages(request.getParameter("newsalary"));
     if (message.equals("Salary updated"))
-      XmlLog.logSalaryChange(auth.getUsername(), change.getID(), change.getName(), change.getBeforeSalary(), change.getSalary());
+      XmlLog.logSalaryChange(auth.getUsername(), change.getID(), change.getName(value), change.getBeforeSalary(), change.getSalary());
     %>
     <%= message %>
   </div>
