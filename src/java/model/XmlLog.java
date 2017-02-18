@@ -1,5 +1,6 @@
 // Nagy Gábor
 // Berényi Lajos
+// Pomeisl Ferenc
 
 package model;
 
