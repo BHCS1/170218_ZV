@@ -72,14 +72,14 @@ public class Department extends Model {
     try{
       connect();
 
-      String query = "SELECT d.department_name AS depName, " +
-              "d.department_id AS id, " +
-              "d.manager_id AS managerId " +
-              "COUNT(e.employee_id) AS empCount " +
-              "FROM departments d " +
-              "LEFT JOIN employees e ON e.department_id=d.department_id " +
-              "GROUP BY d.department_id " +
-              "ORDER BY d.depName";
+      String query = "SELECT d.department_name AS depName," +
+"             d.department_id AS id," +
+"             d.manager_id AS managerId," +
+"              COUNT(e.employee_id) AS empCount " +
+"              FROM departments d " +
+"              LEFT JOIN employees e ON e.department_id=d.department_id " +
+"              GROUP BY d.department_id , d.department_name, d.manager_id" +
+"              ORDER BY depName";
 
       ResultSet result = connection.createStatement().executeQuery(query);
 
