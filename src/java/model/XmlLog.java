@@ -144,12 +144,7 @@ public class XmlLog {
   
   public static void logSQL(String username, String SQL) {
     String[] datas = getEmptyStringArray();
-    int employeeCount = 1;
-    try {
-    employeeCount = Employee.getEmployeeCount();
-    } catch (ClassNotFoundException | SQLException ex) {
-      ex.printStackTrace();
-    }
+    int employeeCount = Employee.getEmployeeCount();
     datas[1] = username;
     datas[2] = "SQL";
     datas[4] = "" + employeeCount;
