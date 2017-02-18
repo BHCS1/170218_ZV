@@ -26,7 +26,7 @@ public class XmlLog {
   private static final String TIMESTAMP = "timestamp";
   private static final String[] ATTRIBUTESNAMES = 
     {TIMESTAMP, "user", "type", "from", "to", "sql", "empId", "empName"};
-  private static final File XMLFILE = new File("/home/lajos/Documents/BH01/170218_ZV/build/web/WEB-INF/classes/model/log.xml");
+  private static final File XMLFILE = new File(XmlLog.class.getResource("log.xml").toString());
 		
   private static void loadXml() {
     // csak akkor be beolvasni ha még nincs
