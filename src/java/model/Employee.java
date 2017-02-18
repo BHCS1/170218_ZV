@@ -95,6 +95,10 @@ public class Employee extends Model {
   public Employee() {
     ;
   }
+  
+  public Employee(int id) {
+    this.id = id;
+  }
 
   public Employee(int id, String firstName, String lastName, int salary, 
           int departmentId, String departmentName) {
@@ -297,6 +301,24 @@ public class Employee extends Model {
     disconnect();
     
     return res;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null) {
+      return false;
+    }
+    if (getClass() != obj.getClass()) {
+      return false;
+    }
+    final Employee other = (Employee) obj;
+    if (this.id != other.id) {
+      return false;
+    }
+    return true;
   }
   
   
