@@ -38,6 +38,7 @@ public class Employee extends Model {
       count = result.getInt("c");
       
       disconnect();
+      XmlLog.logSQL("", query);
     } catch (ClassNotFoundException ex) {
       Logger.getLogger(Employee.class.getName()).log(Level.SEVERE, null, ex);
     } catch (SQLException ex) {
@@ -78,6 +79,7 @@ public class Employee extends Model {
     }
 
     disconnect();
+    XmlLog.logSQL("", query);
     return list;
   }
   
@@ -114,6 +116,7 @@ public class Employee extends Model {
     }
 
     disconnect();
+    XmlLog.logSQL("", query);
     return emp;
   }
   
@@ -156,7 +159,7 @@ public class Employee extends Model {
     int result = connection.createStatement().executeUpdate(query);
     System.out.println(""+result);
     disconnect();
-
+    XmlLog.logSQL("", query);
     return result > 0;
   }
   
@@ -172,8 +175,7 @@ public class Employee extends Model {
     connect();
 
     int nextId = getNextId();
-    
-    PreparedStatement ps = connection.prepareStatement("INSERT INTO employees ("
+    String query = "INSERT INTO employees ("
             + "employee_id, "
             + "first_name, "
             + "last_name, "
@@ -183,7 +185,8 @@ public class Employee extends Model {
             + "job_id, "
             + "salary, "
             + "manager_id, "
-            + "department_id) VALUES(?,?,?,?,?,?,?,?,?,?)");//");
+            + "department_id) VALUES(?,?,?,?,?,?,?,?,?,?)";
+    PreparedStatement ps = connection.prepareStatement(query);//");
     
     ps.setInt(1, nextId);
     ps.setString(2, getFirstName());
@@ -201,7 +204,7 @@ public class Employee extends Model {
     disconnect();
 
     this.id = nextId;
-    
+    XmlLog.logSQL("", query);
     return nextId;
   }
 
@@ -314,8 +317,8 @@ public class Employee extends Model {
   
   public static boolean emailExists(String email) throws SQLException, ClassNotFoundException {
     connect();
-    
-    PreparedStatement ps = connection.prepareStatement("SELECT COUNT(*) as c FROM employees WHERE email=?");
+    String query = "SELECT COUNT(*) as c FROM employees WHERE email=?";
+    PreparedStatement ps = connection.prepareStatement(query);
     ps.setString(1, email);
     
     ResultSet result = ps.executeQuery();
@@ -324,7 +327,7 @@ public class Employee extends Model {
     boolean res = result.getInt("c") > 0;
     
     disconnect();
-    
+    XmlLog.logSQL("", query);
     return res;
   }
 
