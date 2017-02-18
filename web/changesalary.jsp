@@ -1,5 +1,3 @@
-// Berényi Lajos
-
 <%@page import="model.XmlLog"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="model.Employee"%>
