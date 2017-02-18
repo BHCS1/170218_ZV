@@ -16,10 +16,18 @@ public class Department extends Model {
   private int id;
   private String name;
   private int managerId;
+  private int empCount;
 
   public Department(int id, String name) {
     this.id = id;
     this.name = name;
+  }
+
+  public Department(int id, String name, int managerId, int empCount) {
+    this.id = id;
+    this.name = name;
+    this.managerId = managerId;
+    this.empCount = empCount;
   }
 
   public Department(int id, String name, int managerId) {
@@ -58,29 +66,40 @@ public class Department extends Model {
   }
 
 
-  public static ArrayList<Department> getAll() throws ClassNotFoundException, SQLException {
-    connect();
+  public static ArrayList<Department> getAll() {
     ArrayList<Department> list = new ArrayList<>();
 
-    String query = "SELECT department_name AS depName, " +
-            "department_id AS id, " +
-            "manager_id AS managerId " +
-            "FROM departments " +
-            "ORDER BY depName";
+    try{
+      connect();
 
-    ResultSet result = connection.createStatement().executeQuery(query);
+      String query = "SELECT d.department_name AS depName, " +
+              "d.department_id AS id, " +
+              "d.manager_id AS managerId " +
+              "COUNT(e.employee_id) AS empCount " +
+              "FROM departments d " +
+              "LEFT JOIN employees e ON e.department_id=d.department_id " +
+              "GROUP BY d.department_id " +
+              "ORDER BY d.depName";
 
-    while (result.next()) {
-      list.add(
-        new Department(
-          result.getInt("id"),
-          result.getString("depName"),
-          result.getInt("managerId")
-        )
-      );
+      ResultSet result = connection.createStatement().executeQuery(query);
+
+      while (result.next()) {
+        list.add(
+          new Department(
+            result.getInt("id"),
+            result.getString("depName"),
+            result.getInt("managerId"),
+            result.getInt("empCount")
+          )
+        );
+      }
+
+      disconnect();
+    } catch (SQLException ex) {
+      Logger.getLogger(Department.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (ClassNotFoundException ex) {
+      Logger.getLogger(Department.class.getName()).log(Level.SEVERE, null, ex);
     }
-
-    disconnect();
     return list;
   }
   
@@ -123,8 +142,12 @@ public class Department extends Model {
     disconnect();
     return list;
   }
-    
-    public int getId() {
+
+  public int getEmpCount() {
+    return empCount;
+  }
+  
+  public int getId() {
     return this.id;
   }
     
