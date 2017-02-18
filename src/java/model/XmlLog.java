@@ -1,3 +1,4 @@
+// Nagy Gábor
 
 package model;
 
